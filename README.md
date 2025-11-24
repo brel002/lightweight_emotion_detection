@@ -1,2 +1,172 @@
 # Lightweight Emotion Detection
-Initial setup and project structure.
+```markdown
+# Emotion Detection Model on ML Cluster
+
+This repository contains scripts and instructions for running emotion detection experiments on the ML cluster using the RAVDESS dataset.
+
+---
+
+## Setup
+
+1. **Connect to the cluster:**
+   ```bash
+   ssh <username>@foscsmlprd02
+   cd /home/brel002/emotion_detection/
+   ```
+
+---
+
+## GRU Example
+
+### 1. Feature Extraction
+Edit `scripts/run_extract_EN.sbatch`:
+- Uncomment line 69:
+  ```bash
+  MOD="scripts.extract_fuse_features_generic_timm_V4_24VideoTSTEPS"
+  ```
+- Comment out line 70:
+  ```bash
+  # MOD="scripts.extract_fuse_features_generic_timm_V4_32VideoTSTEPS"
+  ```
+
+Run the extractor:
+```bash
+sed -i 's/\r$//' scripts/run_extract_EN.sbatch
+sbatch scripts/run_extract_EN.sbatch
+tail -f /home/brel002/emotion_detection/outputs/logs/extract_<BID>.log
+```
+
+### 2. Check Extracted Features
+Features are saved at:
+```
+/data/brel002/emotion_storage/outputs/features/<BACKBONE>
+```
+
+### 3. Run Ablation Experiments
+```bash
+sed -i 's/\r$//' scripts/ablate_gru_all.sh
+sbatch scripts/ablate_gru_all.sh
+tail -n 200 -f /data/brel002/emotion_storage/logs/output_<QID>.txt
+tail -n 200 -f /data/brel002/emotion_storage/logs/error_<QID>.txt
+```
+
+### 4. Check Results
+Results are saved at:
+```
+/data/brel002/emotion_storage/outputs/experiments/<BACKBONE>
+```
+- `gru_results.csv`: Results from all phases.
+- `gru_CV_results.csv`: Aggregated results from the final test phase.
+
+### 5. Check Best GRU Result
+Check the sorted results:
+```
+/data/brel002/emotion_storage/outputs/experiments/efficientnet_b0/gru_CV_results_T24.csv
+```
+Sort by `retrain_test_agg_acc_mean` (descending).
+
+### 6. Replicate Best GRU Model
+```bash
+/data/brel002/conda/envs/emotion_detection/bin/python -u -m scripts.train_gru_CV \
+  --backbone=efficientnet_b0 \
+  --hidden=384 \
+  --num-layers=1 \
+  --p-drop=0.1 \
+  --proj-dim=0 \
+  --fuse-mode=concat \
+  --fuse-dim=256 \
+  --pool-type=attn \
+  --seed=42 \
+  --ablation-phase=4 \
+  --mod-drop=0.1 \
+  --freq-mask-ratio=0.0 \
+  --time-mask-ratio=0.0 \
+  --lr=0.001 \
+  --weight-decay=0.0001 \
+  --label-smoothing=0.02 \
+  --margin=0 \
+  --folds-json=scripts/ravdess_5cv_val.json \
+  --uar-floor=0.56 \
+  --uar-warmup=6 \
+  --early-metric=acc
+```
+
+---
+
+## Mamba Example
+
+### 1. Feature Extraction
+```bash
+sed -i 's/\r$//' scripts/run_extract_EN.sbatch
+sbatch scripts/run_extract_EN.sbatch
+tail -f /home/brel002/emotion_detection/outputs/logs/extract_<BID>.log
+```
+
+### 2. Check Extracted Features
+Features are saved at:
+```
+/data/brel002/emotion_storage/outputs/features/<BACKBONE>
+```
+
+### 3. Run Ablation Experiments
+```bash
+sed -i 's/\r$//' scripts/ablate_mamba_all.sh
+sbatch scripts/ablate_mamba_all.sh
+tail -n 200 -f /data/brel002/emotion_storage/logs/output_<QID>.txt
+tail -n 200 -f /data/brel002/emotion_storage/logs/error_<QID>.txt
+```
+
+### 4. Run Fine-Tuning Experiments
+```bash
+sed -i 's/\r$//' scripts/ablate_mamba_fine_tuning.sh
+sbatch scripts/ablate_mamba_fine_tuning.sh
+tail -n 200 -f /data/brel002/emotion_storage/logs/output_<QID>.txt
+tail -n 200 -f /data/brel002/emotion_storage/logs/error_<QID>.txt
+```
+
+### 5. Check Results
+Results are saved at:
+```
+/data/brel002/emotion_storage/outputs/experiments/<BACKBONE>
+```
+- `mamba_results.csv`: Results from all phases.
+- `mamba_CV_results.csv`: Aggregated results from the final test phase.
+
+### 6. Check Best Mamba Result
+Check the sorted results:
+```
+/data/brel002/emotion_storage/outputs/experiments/efficientnet_b0/mamba_CV_results_T32.csv
+```
+Sort by `retrain_test_agg_acc_mean` (descending).
+
+### 7. Replicate Best Mamba Model
+```bash
+/data/brel002/conda/envs/emotion_detection/bin/python -u -m scripts.train_mamba_CV \
+  --backbone=efficientnet_b0 \
+  --d-model=256 \
+  --layers=2 \
+  --dropout=0.25 \
+  --pool=attn \
+  --label-smoothing=0.05 \
+  --tin=off \
+  --lr=0.001 \
+  --weight-decay=0.001 \
+  --epochs=40 \
+  --patience=10 \
+  --batch-size=32 \
+  --folds-json=scripts/ravdess_5cv_val_test.json \
+  --seed=42 \
+  --early-metric=acc \
+  --uar-floor=0.56 \
+  --uar-warmup=6 \
+  --ablation-phase=5 \
+  --retrain-trainval
+```
+
+---
+
+## Notes
+- Replace `<BID>` and `<QID>` with actual job IDs.
+- Ensure paths and filenames are updated according to your environment.
+```
+

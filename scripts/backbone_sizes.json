@@ -1,0 +1,137 @@
+[
+  {
+    "backbone": "mobilenetv4_conv_small_050.e3000_r224_in1k",
+    "params_M": 0.971854,
+    "size_mb_fp32": 3.7073287963867188,
+    "size_mb_fp16_est": 1.8536643981933594,
+    "size_mb_int8_weight_only_est": 0.9268321990966797,
+    "emb_dim": 1280,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 3.7073287963867188,
+    "total_size_mb_fp16_est": 1.8536643981933594,
+    "total_size_mb_int8_weight_only_est": 0.9268321990966797
+  },
+  {
+    "backbone": "mobilenetv3_small_100",
+    "params_M": 1.530002,
+    "size_mb_fp32": 5.836494445800781,
+    "size_mb_fp16_est": 2.9182472229003906,
+    "size_mb_int8_weight_only_est": 1.4591236114501953,
+    "emb_dim": 1024,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 5.836494445800781,
+    "total_size_mb_fp16_est": 2.9182472229003906,
+    "total_size_mb_int8_weight_only_est": 1.4591236114501953
+  },
+  {
+    "backbone": "mobilenetv3_large_100",
+    "params_M": 4.226478,
+    "size_mb_fp32": 16.12273406982422,
+    "size_mb_fp16_est": 8.06136703491211,
+    "size_mb_int8_weight_only_est": 4.030683517456055,
+    "emb_dim": 1280,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 16.12273406982422,
+    "total_size_mb_fp16_est": 8.06136703491211,
+    "total_size_mb_int8_weight_only_est": 4.030683517456055
+  },
+  {
+    "backbone": "efficientnet_b0",
+    "params_M": 4.049613,
+    "size_mb_fp32": 15.448047637939453,
+    "size_mb_fp16_est": 7.724023818969727,
+    "size_mb_int8_weight_only_est": 3.8620119094848633,
+    "emb_dim": 1280,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 15.448047637939453,
+    "total_size_mb_fp16_est": 7.724023818969727,
+    "total_size_mb_int8_weight_only_est": 3.8620119094848633
+  },
+  {
+    "backbone": "mobilenetv2_100",
+    "params_M": 2.258036,
+    "size_mb_fp32": 8.613723754882812,
+    "size_mb_fp16_est": 4.306861877441406,
+    "size_mb_int8_weight_only_est": 2.153430938720703,
+    "emb_dim": 1280,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 8.613723754882812,
+    "total_size_mb_fp16_est": 4.306861877441406,
+    "total_size_mb_int8_weight_only_est": 2.153430938720703
+  },
+  {
+    "backbone": "mobilevit_s.cvnets_in1k",
+    "params_M": 4.94992,
+    "size_mb_fp32": 18.8824462890625,
+    "size_mb_fp16_est": 9.44122314453125,
+    "size_mb_int8_weight_only_est": 4.720611572265625,
+    "emb_dim": 640,
+    "input_hw": [
+      256,
+      256
+    ],
+    "total_size_mb_fp32": 18.8824462890625,
+    "total_size_mb_fp16_est": 9.44122314453125,
+    "total_size_mb_int8_weight_only_est": 4.720611572265625
+  },
+  {
+    "backbone": "deit_tiny_patch16_224",
+    "params_M": 5.524416,
+    "size_mb_fp32": 21.073974609375,
+    "size_mb_fp16_est": 10.5369873046875,
+    "size_mb_int8_weight_only_est": 5.26849365234375,
+    "emb_dim": 192,
+    "input_hw": [
+      224,
+      224
+    ],
+    "total_size_mb_fp32": 21.073974609375,
+    "total_size_mb_fp16_est": 10.5369873046875,
+    "total_size_mb_int8_weight_only_est": 5.26849365234375
+  },
+  {
+    "backbone": "efficientnet_b1",
+    "params_M": 6.575301,
+    "size_mb_fp32": 25.082782745361328,
+    "size_mb_fp16_est": 12.541391372680664,
+    "size_mb_int8_weight_only_est": 6.270695686340332,
+    "emb_dim": 1280,
+    "input_hw": [
+      240,
+      240
+    ],
+    "total_size_mb_fp32": 25.082782745361328,
+    "total_size_mb_fp16_est": 12.541391372680664,
+    "total_size_mb_int8_weight_only_est": 6.270695686340332
+  },
+  {
+    "backbone": "efficientnetv2_s",
+    "params_M": 20.33147,
+    "size_mb_fp32": 77.55840301513672,
+    "size_mb_fp16_est": 38.77920150756836,
+    "size_mb_int8_weight_only_est": 19.38960075378418,
+    "emb_dim": 1280,
+    "input_hw": [
+      288,
+      288
+    ],
+    "total_size_mb_fp32": 77.55840301513672,
+    "total_size_mb_fp16_est": 38.77920150756836,
+    "total_size_mb_int8_weight_only_est": 19.38960075378418
+  }
+]

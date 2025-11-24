@@ -18,7 +18,7 @@ This repository contains scripts and instructions for running emotion detection 
 
 ## GRU Example
 
-### 1. Feature Extraction
+### 1. Feature Extraction ( with efficientnet_b0 BACKBONE )
 Edit `scripts/run_extract_EN.sbatch`:
 - Uncomment line 69:
   ```bash
@@ -43,6 +43,8 @@ Features are saved at:
 ```
 
 ### 3. Run Ablation Experiments
+- It runs over all 9 backbones' extracted features. Comment out backbones you do not want.
+  
 ```bash
 sed -i 's/\r$//' scripts/ablate_gru_all.sh
 sbatch scripts/ablate_gru_all.sh
@@ -95,7 +97,7 @@ Sort by `retrain_test_agg_acc_mean` (descending).
 
 ## Mamba Example
 
-### 1. Feature Extraction
+### 1. Feature Extraction ( with efficientnet_b0 BACKBONE )
 ```bash
 sed -i 's/\r$//' scripts/run_extract_EN.sbatch
 sbatch scripts/run_extract_EN.sbatch
@@ -109,6 +111,8 @@ Features are saved at:
 ```
 
 ### 3. Run Ablation Experiments
+- It runs over all 9 backbones' extracted features. Comment out backbones you do not want.
+  
 ```bash
 sed -i 's/\r$//' scripts/ablate_mamba_all.sh
 sbatch scripts/ablate_mamba_all.sh
@@ -168,5 +172,31 @@ Sort by `retrain_test_agg_acc_mean` (descending).
 ## Notes
 - Replace `<BID>` and `<QID>` with actual job IDs.
 - Ensure paths and filenames are updated according to your environment.
+- To queue feature extracts from all backbones, run
+
+```bash
+sed -i 's/\r$//' scripts/run_extract_EN.sbatch
+sbatch scripts/run_extract_EN.sbatch
+sed -i 's/\r$//' scripts/run_extract_EN_B1.sbatch
+sbatch scripts/run_extract_EN_B1.sbatch
+sed -i 's/\r$//' scripts/run_extract_EN_V2.sbatch
+sbatch scripts/run_extract_EN_V2.sbatch
+sed -i 's/\r$//' scripts/run_extract_MNV2.sbatch
+sbatch scripts/run_extract_MNV2.sbatch
+sed -i 's/\r$//' scripts/run_extract_MNV3_large.sbatch
+sbatch scripts/run_extract_MNV3_large.sbatch
+sed -i 's/\r$//' scripts/run_extract_MNV3_small.sbatch
+sbatch scripts/run_extract_MNV3_small.sbatch
+sed -i 's/\r$//' scripts/run_extract_MNV4.sbatch 
+sbatch scripts/run_extract_MNV4.sbatch
+sed -i 's/\r$//' scripts/run_extract_MViT.sbatch
+sbatch scripts/run_extract_MViT.sbatc
+sed -i 's/\r$//' scripts/run_extract_DeiT_Tiny.sbatch
+sbatch scripts/run_extract_DeiT_Tiny.sbatch
 ```
+(make sure that all .sbatch files run the same extractor version: have the same line uncommented:
+MOD="scripts.extract_fuse_features_generic_timm_V4_32VideoTSTEPS"
+OR
+MOD="scripts.extract_fuse_features_generic_timm_V4_24VideoTSTEPS"
+)
 

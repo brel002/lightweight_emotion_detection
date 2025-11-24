@@ -67,7 +67,19 @@ Check the sorted results:
 ```
 Sort by `retrain_test_agg_acc_mean` (descending).
 
-### 6. Replicate Best GRU Model
+### 6. Best GRU model: checkpoints on each fold
+( files are too big to upload to storage/models/efficientnet_b0)
+
+on ML cluster:
+
+/data/brel002/emotion_storage/models/efficientnet_b0/gru_f0_20251018-024158_2050509_62325429b617.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/gru_f1_20251018-024250_2050509_1d24a834d9f6.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/gru_f2_20251018-024341_2050509_08019a6fbdd3.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/gru_f3_20251018-024425_2050509_0d16493a8eea.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/gru_f4_20251018-024500_2050509_7800f7799cf2.pt
+
+
+### 7. Replicate Best GRU Model
 ```bash
 /data/brel002/conda/envs/emotion_detection/bin/python -u -m scripts.train_gru_CV \
   --backbone=efficientnet_b0 \
@@ -143,7 +155,18 @@ Check the sorted results:
 ```
 Sort by `retrain_test_agg_acc_mean` (descending).
 
-### 7. Replicate Best Mamba Model
+### 7. Best Mamba model: checkpoints on each fold
+files are uploaded to: storage/models/efficientnet_b0
+
+on ML cluster:
+
+/data/brel002/emotion_storage/models/efficientnet_b0/mamba_f20251026-110705_1092033_387969945d20.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/mamba_f20251026-110737_1092033_a2596c6b35a7.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/mamba_f20251026-110813_1092033_79980189c172.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/mamba_f20251026-110850_1092033_e1b68eedbd95.pt
+/data/brel002/emotion_storage/models/efficientnet_b0/mamba_f20251026-110913_1092033_6e82ef52dc61.pt
+
+### 8. Replicate Best Mamba Model
 ```bash
 /data/brel002/conda/envs/emotion_detection/bin/python -u -m scripts.train_mamba_CV \
   --backbone=efficientnet_b0 \
